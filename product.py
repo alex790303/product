@@ -1,12 +1,21 @@
-# 讀取檔案
+#搜尋檔案
+import os # os = operating sysytem作業系統
+
 product = []
-with open('products.csv', 'r', encoding = 'utf-8') as f: #編碼讀取跟寫入要相同
-	for line in f:
-		if '商品,價格' in line:
-			continue #跳到下一步
-		name, price = line.strip().split(',') #split(切割）','為切割標準 .strip(去掉換行)
-		product.append([name, price])
-print(product)
+if os.path.isfile('products.csv'):
+	print('有')
+	# 讀取檔案
+
+	with open('products.csv', 'r', encoding = 'utf-8') as f: #編碼讀取跟寫入要相同
+		for line in f:
+			if '商品,價格' in line:
+				continue #跳到下一步
+			name, price = line.strip().split(',') #split(切割）','為切割標準 .strip(去掉換行)
+			product.append([name, price])
+	print(product)
+else:
+	print('無，現在開始產生新表單')
+
 
 #讓使用者輸入
 while True:
