@@ -1,23 +1,16 @@
 #搜尋檔案
 import os # os = operating sysytem作業系統
 
+# 讀取檔案
 def read_file(filename):
 	product = []
-	if os.path.isfile(filename):
-		print('有')
-		# 讀取檔案
-
-		with open(filename, 'r', encoding = 'utf-8') as f: #編碼讀取跟寫入要相同
-			for line in f:
-				if '商品,價格' in line:
-					continue #跳到下一步
-				name, price = line.strip().split(',') #split(切割）','為切割標準 .strip(去掉換行)
-				product.append([name, price])
-		print(product)
-	else:
-		print('找不到檔案')
-	return product	
-
+	with open(filename, 'r', encoding = 'utf-8') as f: #編碼讀取跟寫入要相同
+		for line in f:
+			if '商品,價格' in line:
+				continue #跳到下一步
+			name, price = line.strip().split(',') #split(切割）','為切割標準 .strip(去掉換行)
+			product.append([name, price])
+	return product
 
 #讓使用者輸入
 def user_input(product):
@@ -46,7 +39,17 @@ def write_file(filename, product):
 		for p in product:
 			f.write(p[0] + ',' + p[1] + '\n')
 
-product = read_file('products.csv')
-product = user_input(product)
-print_products(product)
-write_file('products.csv', product)
+def main():
+	filename = 'products.csv'
+	if os.path.isfile(filename): #檢查檔案
+		print('有')
+		product = read_file(filename)
+		print(product)	
+	else:
+		print('找不到檔案')
+
+	product = user_input(product)
+	print_products(product)
+	write_file('products.csv', product)
+
+main()
